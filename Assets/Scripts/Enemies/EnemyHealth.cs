@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,14 +7,15 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int startingHealth = 3;
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] private float knockBackThrust = 15f;
-
+    [SerializeField] private float respawnTime = 2f;
     private int currentHealth;
     private Knockback knockback;
     private Flash flash;
-
+    private Vector3 spawnPosition;
     private void Awake() {
         flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
+        spawnPosition = transform.position;
     }
 
     private void Start() {
@@ -23,9 +24,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage) {
         currentHealth -= damage;
+        Debug.Log(currentHealth);
         knockback.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
         StartCoroutine(flash.FlashRoutine());
-        StartCoroutine(CheckDetectDeathRoutine());
+        //StartCoroutine(CheckDetectDeathRoutine());
     }
 
     private IEnumerator CheckDetectDeathRoutine() {
@@ -35,9 +37,17 @@ public class EnemyHealth : MonoBehaviour
 
     public void DetectDeath() {
         if (currentHealth <= 0) {
-            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
-            GetComponent<PickUpSpawner>().DropItems();
-            Destroy(gameObject);
+            GameObject vfxInstance = Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            //GetComponent<PickUpSpawner>().DropItems();
+            Destroy(vfxInstance, 2f);
+            gameObject.SetActive(false);
+            Invoke(nameof(Respawn), respawnTime);
         }
+    }
+    private void Respawn()
+    {
+        transform.position = spawnPosition; 
+        currentHealth = startingHealth;
+        gameObject.SetActive(true);
     }
 }

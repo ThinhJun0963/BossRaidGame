@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4756054498983199306}
   - component: {fileID: 4108706176871638178}
   - component: {fileID: 8868739088729690764}
+  - component: {fileID: 3823509606282718849}
   - component: {fileID: 8952416838891643583}
+  - component: {fileID: 2592263294373320920}
+  - component: {fileID: 323199171087131284}
   - component: {fileID: 12019061099581310}
   - component: {fileID: 3245186115618873808}
   - component: {fileID: 9186793471426589077}
@@ -102,6 +105,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+--- !u!114 &3823509606282718849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9016350277976245425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1b3e9721cb5c946b981ddc44f25cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteFlashMat: {fileID: 2100000, guid: 9248de05a354bc14985ff734a0bea453, type: 2}
+  restoreDefaultMatTime: 0.2
 --- !u!114 &8952416838891643583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +136,34 @@ MonoBehaviour:
   enemyType: {fileID: 0}
   attackCooldown: 2
   stopMovingWhileAttacking: 0
+--- !u!114 &2592263294373320920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9016350277976245425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687e4df2d64f3564e92eccf1588349d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.2
+--- !u!114 &323199171087131284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9016350277976245425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015f75b026bc3f439ef0172a0cb81af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  deathVFXPrefab: {fileID: 3875877440593765726, guid: 56800c92f8caa8145b14ed4fb66e537a, type: 3}
+  knockBackThrust: 15
 --- !u!70 &12019061099581310
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

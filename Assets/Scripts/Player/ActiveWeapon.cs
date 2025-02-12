@@ -13,7 +13,6 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
 
     protected override void Awake() {
         base.Awake();
-
         playerControls = new PlayerControls();
     }
 
