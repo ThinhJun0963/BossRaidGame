@@ -28,7 +28,7 @@ public class BossAttackBehaviour : StateMachineBehaviour
         if (distanceToPlayer <= attackRange && Time.time >= nextAttackTime)
         {
             // Trigger attack animation
-            animator.SetTrigger("attack");
+            animator.SetTrigger("attack1");
             nextAttackTime = Time.time + attackCooldown;
         }
     }
@@ -36,6 +36,6 @@ public class BossAttackBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Reset attack trigger
-        animator.ResetTrigger("attack");
+        animator.ResetTrigger("attack1");
     }
 }
