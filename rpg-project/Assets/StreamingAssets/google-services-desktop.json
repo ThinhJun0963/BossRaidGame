@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627689022724",
+    "project_id": "prugame-73543",
+    "storage_bucket": "prugame-73543.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627689022724:android:836c73a363e06534dd9c51",
+        "android_client_info": {
+          "package_name": "com.genevieveschultz.rpg2d"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEJ2NKTF2M4_KOestTkZrFzQhqz0BFnSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
