@@ -8,13 +8,15 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
     private PlayerControls playerControls;
     private float timeBetweenAttacks;
     private bool attackButtonDown, isAttacking = false;
+    private AudioSource audioSource;
 
-
+    [SerializeField] private AudioClip attackSound;
     protected override void Awake()
     {
         base.Awake();
 
         playerControls = new PlayerControls();
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -76,6 +78,14 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
         {
             AttackCooldown();
             (CurrentActiveWeapon as IWeapon).Attack();
+            PlayAttackSound();
+        }
+    }
+    private void PlayAttackSound()
+    {
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
         }
     }
 }

@@ -10,13 +10,13 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private float dashSpeed = 4f;
     [SerializeField] private TrailRenderer myTrailRenderer;
     [SerializeField] private Transform weaponCollider;
-
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
     private Knockback knockback;
+    private AudioSource audioSource;
     private float startingMoveSpeed;
 
     private bool facingLeft = false;
@@ -31,6 +31,7 @@ public class PlayerController : Singleton<PlayerController>
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         knockback = GetComponent<Knockback>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -108,6 +109,10 @@ public class PlayerController : Singleton<PlayerController>
             isDashing = true;
             moveSpeed *= dashSpeed;
             myTrailRenderer.emitting = true;
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
             StartCoroutine(EndDashRoutine());
         }
     }
@@ -122,4 +127,5 @@ public class PlayerController : Singleton<PlayerController>
         yield return new WaitForSeconds(dashCooldown);
         isDashing = false;
     }
+   
 }

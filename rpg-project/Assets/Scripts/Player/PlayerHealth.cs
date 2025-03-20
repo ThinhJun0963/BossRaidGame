@@ -22,7 +22,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
     const string HEALTH_SLIDER_TEXT = "Health Slider";
     const string TOWN_TEXT = "Town";
     readonly int DEATH_HASH = Animator.StringToHash("Death");
-
+    public DeathQuizManager quizManager;
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +35,14 @@ public class PlayerHealth : Singleton<PlayerHealth>
     {
         IsDead = false;
         currentHealth = maxHealth;
+        if (quizManager == null)
+        {
+            quizManager = FindObjectOfType<DeathQuizManager>();
+            if (quizManager == null)
+            {
+                Debug.LogError("DeathQuizManager not found in the scene!");
+            }
+        }
         UpdateHealthSlider();
     }
 
@@ -76,11 +84,44 @@ public class PlayerHealth : Singleton<PlayerHealth>
         if (currentHealth <= 0 && !IsDead)
         {
             IsDead = true;
-            Destroy(ActiveWeapon.Instance.gameObject);
             currentHealth = 0;
-            GetComponent<Animator>().SetTrigger(DEATH_HASH);
-            StartCoroutine(DeathLoadSceneRoutine());
+            StartCoroutine(TriggerDeathQuiz());
         }
+    }
+    private IEnumerator TriggerDeathQuiz()
+    {
+        yield return new WaitForSeconds(2f);
+        if (quizManager == null)
+        {
+            quizManager = FindObjectOfType<DeathQuizManager>();
+        }
+        if (quizManager != null)
+        {
+            quizManager.ShowDialogue();
+        }
+        else
+        {
+            Debug.LogError("DeathQuizManager not found in the scene!");
+        }
+
+    }
+    public void RestoreHealth(int amount)
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth); // Restore HP but not exceed max
+        UpdateHealthSlider();
+        IsDead = false; // Allow the player to continue playing
+    }
+
+    public void TriggerDeathRoutine()
+    {
+        GetComponent<Animator>().SetTrigger(DEATH_HASH);
+        if (ActiveWeapon.Instance != null)
+        {
+            Destroy(ActiveWeapon.Instance.gameObject);
+        }
+
+        Debug.Log("Weapon destroyed after quiz.");
+        StartCoroutine(DeathLoadSceneRoutine());
     }
 
     private IEnumerator DeathLoadSceneRoutine()

@@ -16,13 +16,11 @@ public class NPCInteraction : MonoBehaviour
     private int selectedOptionIndex = -1;
     private string apiUrl = "https://quizlet-api.onrender.com/api/questions";
     private CanvasGroup dialogueCanvasGroup;
-    private EconomyManager EconomyManager;
     void Start()
     {
         dialogueCanvasGroup = dialogueBox.GetComponent<CanvasGroup>() ?? dialogueBox.AddComponent<CanvasGroup>();
         dialogueCanvasGroup.alpha = 0;
         dialogueBox.SetActive(false);
-        EconomyManager = new EconomyManager();
         foreach (Button btn in answerButtons)
         {
             btn.gameObject.SetActive(false);
@@ -135,7 +133,7 @@ public class NPCInteraction : MonoBehaviour
         if (selectedAnswer.Equals(correctAnswer, System.StringComparison.OrdinalIgnoreCase))
         {
             dialogueText.text = "✅ Correct! Fetching new question...";
-            EconomyManager.UpdateCurrentGold();
+            EconomyManager.Instance.AddGold(1);
         }
         else
         {
